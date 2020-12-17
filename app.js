@@ -4,7 +4,7 @@ const express = require("express");
 const taskRouter = require("./routes/taskRoutes");
 const { findById } = require("./models/taskSchema");
 const Task = require("./models/taskSchema");
-const User = require("./models/userSchema");
+
 dotenv.config({ path: "./config.env" });
 const PORT = 3000;
 const app = express();

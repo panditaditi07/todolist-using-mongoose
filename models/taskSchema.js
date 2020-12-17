@@ -3,25 +3,12 @@ const uniqid = require("uniqid");
 const mongoose = require("mongoose");
 const taskSchema = new mongoose.Schema(
   {
-    // userId: {
-    //   type: mongoose.ObjectId,
-    //   required: true,
-    // },
     taskId: {
       type: String,
       default: " user" + uniqid(),
     },
     taskName: {
       type: String,
-      // required: [true, "Please enter task details"],
-      // validate: {
-      //   validator: function (task) {
-      //     console.log("this is task validator", this);
-      //     return this.taskName.trim().length;
-      //     return true;
-      //   },
-      //   message: "Task name should be a non empty string",
-      // },
     },
     status: {
       type: String,
@@ -41,9 +28,15 @@ const taskSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-// taskSchema.virtual('timeTaken').get(function()
 
+taskSchema.statics.customFilter = function (qP) {
+  return this.find({
+    $and: [
+      { $or: [{ undefined: { $eq: qP.taskId } }, { taskId: qP.taskId }] },
+      { $or: [{ undefined: { $eq: qP.taskName } }, { taskName: qP.taskName }] },
+      { $or: [{ undefined: { $eq: qP.status } }, { status: qP.status }] },
+    ],
+  });
+};
 const Task = mongoose.model("Task", taskSchema);
 module.exports = Task;
-
-// timeTaken=completedAt-startedAt;

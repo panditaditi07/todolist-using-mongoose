@@ -46,9 +46,6 @@ const getbyTaskId = (req, res) => {
       res.send(err);
     } else {
       res.send(data);
-      // res.status(200).json({
-      //   data: data,
-      // });
     }
   });
 };
@@ -82,55 +79,11 @@ const deleteTask = (req, res) => {
   });
 };
 
-// const getByQuery = (req, res) => {
-//   let query = require("url").parse(req.url, true).query;
-//   console.log(query);
-//   let regexp = new RegExp("^" + req.query.taskId);
-//   console.log(regexp);
-//   Task.find({ taskId: regexp }, function (err, tasks) {
-//     if (err) {
-//       res.status(400).json({
-//         message: "Error processing request " + err,
-//         success: false,
-//       });
-//     }
-
-//     res.status(201).send(tasks);
-//   });
-// };
-
-const getByQuery = (req, res, next) => {
-  let queryParameter = req.query;
-
-  // let flag = false;
-  let parameters = ["taskId", "taskName", "status", "createdAt", "updatedAt"];
-  let result = parameters.every((key) => {
-    console.log(req.query);
-    return req.query;
+const getByQuery = (req, res) => {
+  Task.customFilter(req.query).exec((err, results) => {
+    if (err) return next(err);
+    res.json(results);
   });
-
-  // console.log(flag);
-  // console.log(tasks);
-  if (!result) {
-    res.status(400).json({
-      status: "unsuccessful",
-    });
-  }
-  next(result);
-};
-const getbyId = (req, res, result) => {
-  Task.find({ taskId: result }, function (err, data) {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    } else {
-      res.send(data);
-      // res.status(200).json({
-      //   data: data,
-      // });
-    }
-  });
-  next();
 };
 
 module.exports.createTask = createTask;
@@ -139,4 +92,3 @@ module.exports.getbyTaskId = getbyTaskId;
 module.exports.updateTask = updateTask;
 module.exports.deleteTask = deleteTask;
 module.exports.getByQuery = getByQuery;
-module.exports.getbyId = getbyId;
