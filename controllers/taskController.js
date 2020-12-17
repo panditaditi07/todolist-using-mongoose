@@ -1,9 +1,7 @@
 const express = require("express");
-
 const Task = require("../models/taskSchema");
 
-const url = require("url");
-
+//create task
 const createTask = (req, res) => {
   var newTask = new Task();
   console.log(req.body);
@@ -24,6 +22,7 @@ const createTask = (req, res) => {
   });
 };
 
+//get all the task
 const getAllTasks = (req, res, next) => {
   Task.find((err, data) => {
     try {
@@ -39,6 +38,7 @@ const getAllTasks = (req, res, next) => {
   next();
 };
 
+// get by id
 const getbyTaskId = (req, res) => {
   Task.findOne({ taskId: req.headers.taskid }, function (err, data) {
     if (err) {
@@ -50,6 +50,7 @@ const getbyTaskId = (req, res) => {
   });
 };
 
+//update task
 const updateTask = (req, res) => {
   Task.update(
     { taskId: req.body.taskId },
@@ -66,6 +67,7 @@ const updateTask = (req, res) => {
   );
 };
 
+//get by query
 const deleteTask = (req, res) => {
   Task.remove({ taskName: req.body.taskName }, (err, data) => {
     if (err) {

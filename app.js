@@ -11,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use("/todoList", taskRouter);
 
+//connection to mongodb
 mongoose.connect(
   process.env.DATABASE_URL,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
