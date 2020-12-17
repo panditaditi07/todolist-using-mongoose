@@ -1,0 +1,20 @@
+{
+  "name": "mongoose-intro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aditi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.7",
+    "mongoose-string-query": "^0.2.7",
+    "regex": "^0.1.1",
+    "uniqid": "^5.2.0",
+    "uniquid": "^1.1.4"
+  }
+}
